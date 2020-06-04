@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+
+<h1 style="text-align: center;">
+    {{category.name|upper}}
+</h1>
+
+<div class="container">
+    <div class="row">
+        {% for row in category.questions %}
+            <div class="col col-6">
+                <div class="card border-primary mb-3">
+                <div class="card-header"><a href="{{path('category',{id:row.category.id})}}">{{row.category.name|upper}}</a></div>
+                <div class="card-body">
+                    <h4 class="card-title">{{row.createdAt|date("d/m/Y")}}</h4>
+                    <p class="card-text">{{row.title}}</p>
+                    <button type="button" class="btn btn-outline-primary float-right">
+                        <a href="{{path('show_question',{id:row.id})}}">Voir les réponses</a>
+                    </button>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La question{% endblock %}
+
+{% block body %}
+<h1>La question</h1>
+<div class="container">
+    <div class="row">
+        <div class="card border-primary mb-3">
+            <div class="card-header">
+                <a href="{{path('category',{id:question.category.id})}}">{{question.category.name|upper}}</a>
+                <span class="badge badge-secondary float-right"><a href="{{path('tag',{id:question.tag.id})}}">{{question.tag.name|upper}}</a></span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{question.createdAt|date("d/m/Y")}}</h4>
+                <p class="card-text">{{question.title}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    {% for answer in question.answers|sort((a,b) => a.date > b.date) %}
+        <div class="card">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                <p>{{answer.content}}</p>
+                <footer class="blockquote-footer"><cite title="Source Title">{{answer.date|date("d/m/Y")}}</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <a class="float-right" href="{{path('question')}}">Retour aux questions</a>
+</div>
+
+{% endblock %}
